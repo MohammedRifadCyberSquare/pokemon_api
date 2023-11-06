@@ -10,7 +10,7 @@ export class SignupController {
 @Post()
 async createUSer(@Body() user){
      
-
+console.log('hittingg', user)
     return this.signupService.userSignup(user)
 }
 
@@ -18,8 +18,16 @@ async createUSer(@Body() user){
 @Post('verify-email')
 async verifyEmail(@Body() user){
      
+console.log(user);
+    return this.signupService.verifyEmailService(user.email, parseInt(user.otp))
+}
 
-    return this.signupService.verifyEmailService(user.email, user.otp)
+
+@Post('resend-otp')
+async resendOtp(@Body() user){
+     
+console.log(user);
+    return this.signupService.resendOtpService(user.email)
 }
 
 
