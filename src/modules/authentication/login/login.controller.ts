@@ -8,7 +8,7 @@ export class LoginController {
 
     @Post()
     async createUSer(@Body() userCredentials) {
-
+console.log(userCredentials);
 
         return this.loginService.userLogin(userCredentials)
     }

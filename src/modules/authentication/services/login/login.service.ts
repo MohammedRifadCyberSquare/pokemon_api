@@ -36,10 +36,11 @@ export class LoginService {
             console.log('pending');
             
             response['message'] = 'Email not verified'
+            console.log(response);
             return response
            
         }
-
+        console.log(response);
         response['statusCode'] = 404
         response['message'] = 'User name or password incorrect'
         return response

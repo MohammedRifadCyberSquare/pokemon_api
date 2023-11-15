@@ -30,12 +30,15 @@ export class SignupService {
         if (!emailTaken) {
             const newOtp = this.generateOtp();
             user.emailOtp = newOtp
+            user.status = 'email verification pending'
             const newUser = await this.userModel.create(user)
-            newUser['status'] = 'email verification pending'
-            newUser.save()
+            // newUser['status'] = ''
+            // newUser.save()
             response['statusCode'] = 201
-            response['message'] = 'Registration Succesfull, OTP has been sent to your email.'
+            response['email'] = user.email
 
+            response['message'] = 'Registration Succesfull, OTP has been sent to your email.'
+            response['generatedOtp'] = newOtp
             return response
         }
 
