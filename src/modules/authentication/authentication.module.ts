@@ -8,10 +8,15 @@ import { LoginService } from './services/login/login.service';
 import { LoginController } from './login/login.controller';
 import { PasswordResetController } from './password-reset/password-reset.controller';
 import { PasswordResetService } from './services/password-reset/password-reset.service';
+import { ForgotPasswordController } from './forgot-password/forgot-password/forgot-password.controller';
+import { ForgotPasswordService } from './services/forgot-password/forgot-password.service';
+import { JwtModule } from '@nestjs/jwt';
+import { AccessTokenStrategy } from './services/strategy/access-token.strategy';
+import { RefreshTokenStrategy } from './services/strategy/refresh-token-strategy';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: 'User', schema: userSchema}])],
-  controllers: [SignupController, LoginController, PasswordResetController],
-  providers: [SignupService, LoginService, PasswordResetService]
+  imports: [MongooseModule.forFeature([{ name: 'User', schema: userSchema }]), JwtModule],
+  controllers: [SignupController, LoginController, PasswordResetController, ForgotPasswordController],
+  providers: [SignupService, LoginService, PasswordResetService, ForgotPasswordService, AccessTokenStrategy, RefreshTokenStrategy]
 })
-export class AuthenticationModule {}
+export class AuthenticationModule { }

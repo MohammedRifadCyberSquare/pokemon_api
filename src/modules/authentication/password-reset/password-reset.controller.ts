@@ -6,8 +6,8 @@ export class PasswordResetController {
 
      constructor(private passwordResetService: PasswordResetService){}
     @Post('reset')
-    async verifyEmail(@Body() user){
-    
-    return this.passwordResetService.verifyEmail(user.email)
+    async verifyEmail(@Body() credentials){
+    console.log(credentials)
+    return this.passwordResetService.resetUserPassword(credentials)
 }
 }

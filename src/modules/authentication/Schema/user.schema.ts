@@ -23,6 +23,9 @@ export class User{
     emailOtp: number;
 
     @Prop()
+    refreshToken: string;
+
+    @Prop()
     status: string;
 
 }

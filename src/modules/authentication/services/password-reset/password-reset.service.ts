@@ -25,4 +25,25 @@ export class PasswordResetService {
             return response
         }
     }
+
+    async resetUserPassword(credentials){
+        const email = credentials.email
+        const userObj = await this.userModel.findOne({ email });
+        const response = {}
+        console.log(credentials.password,'88888888');
+        
+        if(!!userObj){
+            userObj.password = credentials.password
+            userObj.save()
+            response['statusCode'] = 201
+        }
+        else{
+             response['statusCode'] = 402
+
+        }
+        console.log(response);
+        
+
+        return response
+    }
 }
