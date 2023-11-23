@@ -5,7 +5,7 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
- 
+
  
 
 @Module({
@@ -21,7 +21,7 @@ import { JwtModule } from '@nestjs/jwt';
     AuthenticationModule,
     
   ],
-  controllers: [AppController],
+  controllers: [AppController,  ],
   providers: [AppService,],
 })
 export class AppModule {}

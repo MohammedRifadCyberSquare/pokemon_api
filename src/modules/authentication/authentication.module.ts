@@ -13,10 +13,12 @@ import { ForgotPasswordService } from './services/forgot-password/forgot-passwor
 import { JwtModule } from '@nestjs/jwt';
 import { AccessTokenStrategy } from './services/strategy/access-token.strategy';
 import { RefreshTokenStrategy } from './services/strategy/refresh-token-strategy';
+import { LogoutController } from './logout/logout.controller';
+import { LogoutService } from './services/logout/logout.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'User', schema: userSchema }]), JwtModule],
-  controllers: [SignupController, LoginController, PasswordResetController, ForgotPasswordController],
-  providers: [SignupService, LoginService, PasswordResetService, ForgotPasswordService, AccessTokenStrategy, RefreshTokenStrategy]
+  imports: [MongooseModule.forFeature([{ name: 'User', schema: userSchema }]), JwtModule.register({})],
+  controllers: [SignupController, LoginController, PasswordResetController, ForgotPasswordController, LogoutController],
+  providers: [SignupService, LoginService, PasswordResetService, ForgotPasswordService, AccessTokenStrategy, RefreshTokenStrategy, LogoutService]
 })
 export class AuthenticationModule { }

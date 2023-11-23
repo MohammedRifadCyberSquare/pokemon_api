@@ -5,20 +5,22 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 
 type JwtPayload = {
     sub: string;
-    username: string;
-  };
+    email: string;
+    
+};
 
 @Injectable()
-export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt'){
+export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
 
-    constructor(){
+    constructor() {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: 'secret@acccess'
+            // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            secretOrKey: 'secret@access'
         })
     }
 
-    validate(payload: JwtPayload){
+    validate(payload: JwtPayload) {
         return payload;
     }
 }

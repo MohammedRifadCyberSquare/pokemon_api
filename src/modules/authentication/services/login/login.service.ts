@@ -31,9 +31,10 @@ export class LoginService {
                 if (userObj.status == 'email verified') {
                     response['statusCode'] = 201
                     response['name'] = userObj.name
-
-
-                    response['token'] = userObj._id
+                    const token = await this.signupService.getTokens(userObj._id, userObj.email)
+                    response['token'] = token
+                    // console.log(response['token'].accessToken,'sssssssss')
+                     
                     return response
                 }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose'
 import { User } from '../../Schema/user.schema';
 import mongoose from 'mongoose';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class PasswordResetService {
 
@@ -26,14 +26,14 @@ export class PasswordResetService {
         }
     }
 
-    async resetUserPassword(credentials){
-        const email = credentials.email
+    async resetUserPassword(email, newPassword){
+        
         const userObj = await this.userModel.findOne({ email });
         const response = {}
-        console.log(credentials.password,'88888888');
+        console.log(newPassword,'88888888');
         
         if(!!userObj){
-            userObj.password = credentials.password
+            userObj.password =  bcrypt.hashSync(newPassword,10)
             userObj.save()
             response['statusCode'] = 201
         }

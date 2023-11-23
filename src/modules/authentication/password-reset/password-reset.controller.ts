@@ -1,13 +1,20 @@
-import { Controller, Body, Post } from '@nestjs/common';
+import { Controller, Body, Post, Req, UseGuards } from '@nestjs/common';
 import { PasswordResetService } from '../services/password-reset/password-reset.service';
+import { AccessTokenGuard } from '../guards/access-token-guard/access-token-guard.guard';
 
 @Controller('password')
 export class PasswordResetController {
 
-     constructor(private passwordResetService: PasswordResetService){}
+    constructor(private passwordResetService: PasswordResetService) { }
+
+
     @Post('reset')
-    async verifyEmail(@Body() credentials){
-    console.log(credentials)
-    return this.passwordResetService.resetUserPassword(credentials)
-}
+    @UseGuards(AccessTokenGuard)
+    async passwordReset(@Req() req: Request, @Body() reqBody) {
+
+        const email = req['user'].email
+        console.log(reqBody, email);
+        
+        return this.passwordResetService.resetUserPassword(email, reqBody.newPassword)
+    }
 }

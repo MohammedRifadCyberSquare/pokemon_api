@@ -43,7 +43,9 @@ export class SignupService {
             user.password = bcrypt.hashSync(user.password,10)
             user.status = 'email verification pending'
             const newUser = await this.userModel.create(user)
-            const tokens = await this.getTokens(newUser._id, newUser.name);
+            console.log(newUser.email,'pppppppppppppppppppp');
+            
+            const tokens = await this.getTokens(newUser._id, newUser.email);
             await this.updateRefreshToken(newUser.id, tokens.refreshToken)
             console.log(user.password)
             response['statusCode'] = 201
@@ -101,23 +103,23 @@ export class SignupService {
 
     }
 
-    async getTokens(userId: any, username: string) {
+    async getTokens(userId: any, email: string) {
         const [accessToken, refreshToken] = await Promise.all([
           this.jwtService.signAsync(
             {
               sub: userId,
-              username,
+              email,
             },
             {
             //   secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
             secret: 'secret@access',
-              expiresIn: '15m',
+              expiresIn: '10h',
             },
           ),
           this.jwtService.signAsync(
             {
               sub: userId,
-              username,
+              email,
             },
             {
             secret: 'secret@refresh',
